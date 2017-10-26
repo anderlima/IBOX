@@ -1,17 +1,5 @@
 ---
-declared-services:
-  Uploader_Object-Storage:
-    label: Object-Storage
-    plan: Free
-
 applications:
-- path: .
-  memory: 128M
-  instances: 1
-  domain: mybluemix.net
-  name: php-uploader
-  host: php-uploader
-  disk_quota: 1024M
-  buildpack: https://github.com/cloudfoundry/php-buildpack
-  services:
-    - Uploader_Object-Storage
+ - name: idmcio
+   random-route: true
+   memory: 128M
