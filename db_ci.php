@@ -175,11 +175,15 @@ function getThisTool($db, $ciid){
 
 function searchCIs($db, $search){
 	$rows = array();
-	#$searchlike = $search.'%';
-	try{
+	
+    if(strpos($search, '@') !== false){
+    $stm = $db->prepare("SELECT ci.id, ci.name, ci.short_description FROM cis as ci join users_create_cis as uci on ci.id=uci.cis_id where uci.users_email=:search");  
+    }else{
 	$stm = $db->prepare("SELECT id, name, short_description FROM cis WHERE MATCH (name, short_description, description) AGAINST (:search) and status='published'");
+    }
 	$stm->bindValue(':search', $search);
 	#$stm->bindValue(':searchlike', $searchlike);
+    try{
 	$stm->execute();
 	while($result = $stm->fetch(PDO::FETCH_ASSOC)) {
 		array_push($rows, $result);

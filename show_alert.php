@@ -1,4 +1,7 @@
 <?php
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
 function showAlert($type) {
 	if(isset($_SESSION[$type])) {
 ?>
