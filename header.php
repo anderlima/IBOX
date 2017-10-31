@@ -111,7 +111,7 @@ require_once("user_logic.php");
                     <li><a href="addci.php"><i class="glyphicon glyphicon-pencil"></i>Create CI</a></li>
                     <li><a href="index.php"><i class="glyphicon glyphicon-list"></i>Newest CIs</a></li>
                     <li><a href="index.php?i=1"><i class="glyphicon glyphicon-floppy-saved"></i>To be Reviewed (Admin) <?=$tbreviewed?></a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts) TBA</a></li>
+                    <li><a href="chartsci.php"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts)</a></li>
                     <li class="submenu">
                           <a href="#">
                             <i class="glyphicon glyphicon-user"></i> My CIs

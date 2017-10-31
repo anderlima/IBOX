@@ -336,4 +336,12 @@ $result = $stm->fetch(PDO::FETCH_ASSOC);
 return $result;
 }
 
+function getTopColaborators($db){  
+
+  $sth = $db->prepare("select users_email as label, count(cis_id) as value from users_create_cis group by users_email order by count(cis_id) desc");
+  $sth->execute();
+
+  $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+  return $result;
+}
 ?>

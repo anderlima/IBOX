@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 function showAlert($type) {
 	if(isset($_SESSION[$type])) {
 ?>

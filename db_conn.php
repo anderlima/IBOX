@@ -2,8 +2,10 @@
 define('SERVER', 'us-cdbr-sl-dfw-01.cleardb.net');
 define('DBNAME', 'ibmx_9db6d0a94c4c716');
 define('USER', 'b5141c94decd1e');
-define('PASSWORD', 'afa1bf28');
-session_start();
+define('PASSWORD', '67cd4e542281633');
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
 
 #define('SERVER', 'localhost');
 #define('DBNAME', 'ci_box');
@@ -20,4 +22,3 @@ if (!$db) {
     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL; echo "<br>";
     exit;
 }
-?>
