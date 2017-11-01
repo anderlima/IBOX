@@ -137,7 +137,9 @@ $estimated = isset($_SESSION['estimated']) ? $_SESSION['estimated'] : $estimated
 					?>
 					<div class="col-md-4"> </br>
 					<label>
-					<a href="download.php?id=<?=$row['id']?>"><?=$row['name']?> </a> <?php echo '<input type="text" class="form-control" value="download.php?id='.$row['id'].'">'?>
+					<a href="download.php?id=<?=$row['id']?>"><?=$row['name']?></a> 
+                        <a href="remattach.php?id=<?=$row['id']?>&ciid=<?=$ciid?>&name=<?=$row['name']?>" onclick="return confirm('This will remove <?=$row['name']?> permanently. Are you Sure?')"><span style="float: right; color: #d9534f;"><i class="glyphicon glyphicon-remove"></i></span></a>
+                        <?php echo '<input type="text" class="form-control" value="download.php?id='.$row['id'].'">'?>
 					</label>
                     </div>
 				<?php

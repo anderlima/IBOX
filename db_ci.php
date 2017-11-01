@@ -348,4 +348,17 @@ function getTopColaborators($db){
   $result = $sth->fetchAll(PDO::FETCH_ASSOC);
   return $result;
 }
+
+function removeAttach($db, $id){
+    
+    $sql = "delete from upload where id=:id";
+    try{
+	$stm = $db->prepare($sql);
+	$stm->bindValue(':id', $id);
+	return $stm->execute();
+    } catch(PDOException $e)
+  {
+   $_SESSION["danger"] =  "Error " . $e->getMessage();
+  }
+}
 ?>
