@@ -4,7 +4,6 @@ require_once("header.php");
 require_once("user_logic.php");
 
 checkUser();
-echo $_SESSION['level'];
 
 if(isset($_POST['ciid']) || (isset($_SESSION['ciid']))){
 $ciid = $_SESSION['ciid'] ? $_SESSION['ciid'] : "";
