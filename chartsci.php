@@ -1,7 +1,7 @@
 <?php
 
 require_once("db_ci.php");
-require_once("headcharts.php");
+require_once("header.php");
 require_once("user_logic.php");
 checkUser();
 

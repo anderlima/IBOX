@@ -15,6 +15,12 @@ require_once("user_logic.php");
 
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Morris -->
+<?php if(isset($_GET['i']) && $_GET['i'] == 'chart') { ?>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://cdn.oesmith.co.uk/morris-0.4.1.min.js"></script>
+<?php  } ?>
     <!-- styles -->
     <link href="css/styles.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -108,39 +114,50 @@ require_once("user_logic.php");
                     $netcool = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
                     $result = count(getFilterRes($db, '%', 'Bluecare', '%'));
                     $bluecare = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
+                    $i0 = $_GET['i'] == 'newest' ? $i0 = 'style="color: black;"' : $i0 = '';
+                    $ichart = $_GET['i'] == 'chart' ? $ichart = 'style="color: black;"' : $ichart = '';
+                    $i1 = $_GET['i'] == 1 ? $i1 = 'style="color: black;"' : $i1 = '';
+                    $i2 = $_GET['i'] == 2 ? $i2 = 'style="color: black;"' : $i2 = '';
+                    $i3 = $_GET['i'] == 3 ? $i3 = 'style="color: black;"' : $i3 = '';
+                    $i4 = $_GET['i'] == 4 ? $i4 = 'style="color: black;"' : $i4 = '';
+                    $i5 = $_GET['i'] == 5 ? $i5 = 'style="color: black;"' : $i5 = '';
+                    $i6 = $_GET['i'] == 6 ? $i6 = 'style="color: black;"' : $i6 = '';
+                    $i7 = $_GET['i'] == 7 ? $i7 = 'style="color: black;"' : $i7 = '';
+                    $i8 = $_GET['i'] == 8 ? $i8 = 'style="color: black;"' : $i8 = '';
+                    $i9 = $_GET['i'] == 9 ? $i9 = 'style="color: black;"' : $i9 = '';
+                    $i10 = $_GET['i'] == 10 ? $i10 = 'style="color: black;"' : $i10 = '';
                     ?>
 
                     <li><a href="addci.php"><i class="glyphicon glyphicon-pencil"></i>Create CI</a></li>
-                    <li><a href="index.php"><i class="glyphicon glyphicon-list"></i>Newest CIs</a></li>
-                    <li><a href="index.php?i=1"><i class="glyphicon glyphicon-floppy-saved"></i>To be Reviewed (Admin) <?=$tbreviewed?></a></li>
-                    <li><a href="chartsci.php"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts)</a></li>
+                    <li><a <?=$i0?> href="index.php?i=newest"><i class="glyphicon glyphicon-list"></i>Newest CIs </a></li>
+                    <li><a <?=$i1?> href="index.php?i=1"><i class="glyphicon glyphicon-floppy-saved"></i>To be Reviewed <?=$tbreviewed?> </a></li>
+                    <li><a <?=$ichart?> href="chartsci.php?i=chart"><i class="glyphicon glyphicon-stats"></i> Statistics </a></li>
                     <li class="submenu">
-                          <a href="#">
-                            <i class="glyphicon glyphicon-user"></i> My CIs
+                          <a <?=$i2?><?=$i3?><?=$i4?> href="#">
+                            <i class="glyphicon glyphicon-user"></i> My CIs 
                             <span class="caret pull-right"></span>
                           </a>
                           <ul>
-                            <li><a href="index.php?i=2">Draft <?=$draft?></a></li>
-                            <li><a href="index.php?i=3">Published <?=$published?></a></li>
-			    <li><a href="index.php?i=4">Rejected <?=$rejected?></a></li>
+                            <li><a <?=$i2?> href="index.php?i=2">Draft <?=$draft?> </a></li>
+                            <li><a <?=$i3?> href="index.php?i=3">Published <?=$published?></a></li>
+                            <li><a <?=$i4?> href="index.php?i=4">Rejected <?=$rejected?></a></li>
                           </ul>
                     </li>
                     <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-filter"></i> I-EAU-BR-04
+                         <a <?=$i5?><?=$i6?><?=$i7?><?=$i8?><?=$i9?><?=$i10?> href="#">
+                            <i class="glyphicon glyphicon-filter"></i> Monitoring 
                             <span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
                          <ul>
-                            <li><a href="index.php?i=4">ITM Infratructure <?=$itminf?></a></li>
-                            <li><a href="index.php?i=5">ITM OS Agents <?=$itmos?></a></li>
-                            <li><a href="index.php?i=6">ITM DB Agents <?=$itmdb?></a></li>
-                            <li><a href="index.php?i=7">ITM APP Agents <?=$itmapp?></a></li>
-                            <li><a href="index.php?i=8">Netcool <?=$netcool?></a></li>
-                            <li><a href="index.php?i=9">Bluecare <?=$bluecare?></a></li>
+                            <li><a <?=$i5?> href="index.php?i=5">ITM Infra <?=$itminf?></a></li>
+                            <li><a <?=$i6?> href="index.php?i=6">ITM OS Agents <?=$itmos?></a></li>
+                            <li><a <?=$i7?> href="index.php?i=7">ITM DB Agents <?=$itmdb?></a></li>
+                            <li><a <?=$i8?> href="index.php?i=8">ITM APP Agents <?=$itmapp?></a></li>
+                            <li><a <?=$i9?> href="index.php?i=9">Netcool <?=$netcool?></a></li>
+                            <li><a <?=$i10?> href="index.php?i=10">Bluecare <?=$bluecare?></a></li>
                         </ul>
                     </li>
                 </ul>
              </div>
              </div>
-
