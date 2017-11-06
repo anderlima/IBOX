@@ -255,6 +255,24 @@ $sql = "update cis set status='published', last_update_date=:last, last_update_b
   }
 }
 
+function setRejected($db, $ciid, $justification){
+$now = date("Y/m/d H:i:s", time());
+$user = Whois();
+
+try {
+$sql = "update cis set status='rejected', last_update_date=:last, last_update_by=:user, justification=:justification where id=:id";
+	$stm = $db->prepare($sql);
+	$stm->bindValue(':last', $now);
+	$stm->bindValue(':user', $user);
+	$stm->bindValue(':justification', $justification);
+	$stm->bindValue(':id', $ciid);
+	return $stm->execute();
+	} catch(PDOException $e)
+  {
+   $_SESSION["danger"] =  "Error " . $e->getMessage();
+  }
+}
+
 function sendEmail($db, $id, $name, $status, $type){
 $username='03c38cc1-4d8f-492f-9621-6d57632b1d90';
 $password='c930a783-7b9c-4b3f-9caf-b97f294fb9b2';
@@ -288,7 +306,7 @@ if($status == 'published'){
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was successfully approved by '.Whois().' and <b>'.$status.'</b> <br> Please visit <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> and check on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
  }';
 
-}else{
+}if($status == 'review'){
 	$postData = '{
 	"contact": "NotReplyIbox@br.ibm.com",
 	"recipients": [
@@ -301,6 +319,20 @@ if($status == 'published'){
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was successfully sent for '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was successfully sent for <b>'.$status.'</b> by '.Whois().' <br> Await for moderator approval then visit <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> and check on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
+ }';
+}else{
+    $postData = '{
+	"contact": "NotReplyIbox@br.ibm.com",
+	"recipients": [
+		{"recipient": '.json_encode($email[0]).'},
+        {"recipient": '.json_encode($email[1]).'},
+        {"recipient": '.json_encode($email[2]).'}
+	],
+	"bcc": [
+		{"recipient": "alimao@br.ibm.com"}
+	],
+	"subject": "[IBOX] Your '.$type.' #'.$id.' was '.$status.'        ",
+	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was <b>'.$status.'</b> by '.Whois().'<br> See justification on <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> checking on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
  }';
 }
 

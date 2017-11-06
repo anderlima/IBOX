@@ -11,7 +11,7 @@ $idea = getInfoReg($db, $_POST['iid'], 'ideas');
 <div class="col-md-10">
           <div class="content-box-large">
           	<div class="container">
-          	 <div class="form-group">
+          	 <div class="form-group col-xs-8">
 						<form action="reject_idea.php" method="post">
 						<div class="form-group">
                       		<label>Justification:</label>

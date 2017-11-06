@@ -93,6 +93,8 @@ require_once("user_logic.php");
                     $draft = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
                     $result = count(getFilterRes($db, 'published', '%', Whois()));
                     $published = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
+                    $result = count(getFilterRes($db, 'rejected', '%', Whois()));
+                    $rejected = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
 
                     $result = count(getFilterRes($db, '%', 'ITM-Infrastructure', '%'));
                     $itminf = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
@@ -120,6 +122,7 @@ require_once("user_logic.php");
                           <ul>
                             <li><a href="index.php?i=2">Draft <?=$draft?></a></li>
                             <li><a href="index.php?i=3">Published <?=$published?></a></li>
+			    <li><a href="index.php?i=4">Rejected <?=$rejected?></a></li>
                           </ul>
                     </li>
                     <li class="submenu">

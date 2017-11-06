@@ -35,21 +35,24 @@ switch ($_GET['i']) {
         $cis = getFilterRes($db, 'published', '%', Whois());
         break;
     case 4:
-        $cis = getFilterRes($db, '%', 'ITM-Infrastructure', '%');
+        $cis = getFilterRes($db, 'rejected', '%', Whois());
         break;
     case 5:
-        $cis = getFilterRes($db, '%', 'ITM-OS', '%');
+        $cis = getFilterRes($db, '%', 'ITM-Infrastructure', '%');
         break;
     case 6:
-        $cis = getFilterRes($db, '%', 'ITM-DB', '%');
+        $cis = getFilterRes($db, '%', 'ITM-OS', '%');
         break;
     case 7:
-        $cis = getFilterRes($db, '%', 'ITM-APP', '%');
+        $cis = getFilterRes($db, '%', 'ITM-DB', '%');
         break;
     case 8:
-        $cis = getFilterRes($db, '%', 'Netcool', '%');
+        $cis = getFilterRes($db, '%', 'ITM-APP', '%');
         break;
     case 9:
+        $cis = getFilterRes($db, '%', 'Netcool', '%');
+        break;
+    case 10:
         $cis = getFilterRes($db, '%', 'Bluecare', '%');
         break;
     default:
