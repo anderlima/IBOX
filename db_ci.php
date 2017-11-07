@@ -360,7 +360,7 @@ return "An email was successfully sent!";
 
 function getAllTablesInfo($db, $ciid){
 $rows = array();
-$stm = $db->prepare("SELECT user.users_email as user, team.name as team FROM cis as ci
+$stm = $db->prepare("SELECT user.users_email as user, team.name as team, team.description as description FROM cis as ci
         JOIN users_create_cis as user ON user.cis_id=ci.id
         JOIN cis_for_components as cfc ON cfc.cid_id=ci.id
         JOIN components as comp ON comp.id = cfc.components_id
