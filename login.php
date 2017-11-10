@@ -3,6 +3,8 @@ require_once("db_user.php");
 require_once("user_logic.php");
 require_once("LDAPw3.php");
 
+$redirect = isset($_POST['location']) ? $_POST['location'] : '';
+
 if ($_POST['email']){
         if (empty($_POST['email']) || empty($_POST['password'])) {
                 echo "error empty<br>";
@@ -31,9 +33,14 @@ if ($_POST['email']){
                               setPrivilege($level);
 				              echo "<br>".$_SESSION["name"]."<br>";
 			      CountVisits($db);
+                              if($redirect != ''){
+                              header("Location:". $redirect);
+                             }else{
                               header("Location: index.php");
-                            } else {
-				                $_SESSION["danger"] = "Wrong ID or Password";
+                             }
+
+                            }else{
+				$_SESSION["danger"] = "Wrong ID or Password";
                                 header("Location: login_page.php");
                 }
                 @ldap_close($ds);

@@ -360,11 +360,12 @@ return "An email was successfully sent!";
 
 function getAllTablesInfo($db, $ciid){
 $rows = array();
-$stm = $db->prepare("SELECT user.users_email as user, team.name as team, team.description as description FROM cis as ci
-        JOIN users_create_cis as user ON user.cis_id=ci.id
+$stm = $db->prepare("SELECT userc.users_email as userc, users.team as team, team.description as description FROM cis as ci
+        JOIN users_create_cis as userc ON userc.cis_id=ci.id
         JOIN cis_for_components as cfc ON cfc.cid_id=ci.id
         JOIN components as comp ON comp.id = cfc.components_id
         JOIN teams as team ON comp.teams_id = team.id
+        JOIN users as users ON users.email=userc.users_email 
         WHERE ci.id=:id");
 $stm->bindValue(':id', $ciid);
 $stm->execute();
@@ -392,5 +393,46 @@ function removeAttach($db, $id){
   {
    $_SESSION["danger"] =  "Error " . $e->getMessage();
   }
+}
+
+function InsertImplementedCis($db, $ciid, $user, $customer_code, $saving, $comment){
+$now = date("Y/m/d H:i:s", time());  
+    $sql = "INSERT INTO implemented_cis VALUES (:customer_code, :user, :ciid, :saving, :date, :comment)";
+    try{
+	$stm = $db->prepare($sql);
+	$stm->bindValue(':ciid', $ciid);
+    $stm->bindValue(':user', $user);
+    $stm->bindValue(':customer_code', $customer_code);
+    $stm->bindValue(':saving', $saving);
+    $stm->bindValue(':comment', $comment);  
+    $stm->bindValue(':date', $now);
+     
+	return $stm->execute();
+    } catch(PDOException $e)
+  {
+   $_SESSION["danger"] =  "Error " . $e->getMessage();
+  }
+}
+
+function getImplementedCis($db, $ciid){
+  $rows = array();    
+  $sth = $db->prepare("select distinct * from implemented_cis where cis_id=".$ciid);
+  $sth->execute();
+
+ while($result = $sth->fetch(PDO::FETCH_ASSOC)) {
+	array_push($rows, $result);
+	}
+	return $rows;
+
+}
+
+function RepeatedImplementedCIs($db, $ciid, $customer_code){
+ 
+    $stm = $db->prepare("SELECT * FROM implemented_cis WHERE cis_id=:ciid AND customers_code=:customer_code");
+    $stm->bindValue(':ciid', $ciid);
+    $stm->bindValue(':customer_code', $customer_code);
+    $stm->execute();
+    $result = $stm->fetch(PDO::FETCH_ASSOC);
+    return $result;
 }
 ?>

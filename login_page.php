@@ -41,9 +41,12 @@ if(isUserLogged()) {
 	<form action="login.php" method="post">
 		<table class="table">
 		<tr>
-		<td colspan="2"><h3>W3 ID</h3></td>
+		<td colspan="2"><h3>Login Intranet</h3></td>
 		</tr>
 			<tr>
+			<?php if(isset($_GET['location'])){ ?>
+                		<input  type="hidden" name="location" value="<?=htmlspecialchars($_GET['location'])?>">
+			<?php } ?>
 				
 				<td><label style="padding-right:3em;">Email</label><input  class="form-control form-control-medium" type="text" name="email"></td>
 			</tr>

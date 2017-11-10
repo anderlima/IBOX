@@ -9,7 +9,7 @@ function isUserLogged() {
 
 function checkUser() {
 	if(!isUserLogged()) {
-		header("Location: login_page.php");
+		header("Location: login_page.php?location=" . urlencode($_SERVER['REQUEST_URI']));
 		die();
 	}
 }
