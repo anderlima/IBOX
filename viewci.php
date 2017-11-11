@@ -6,9 +6,15 @@ require_once("user_logic.php");
 checkUser();
 
 if(isset($_POST['ciid']) || (isset($_SESSION['ciid'])) || (isset($_GET['ciid']))){
-$ciid = $_SESSION['ciid'] ? $_SESSION['ciid'] : $_GET['ciid'];
+$ciid = $_GET['ciid'] ? $_GET['ciid'] : "";
+$ciid = $_SESSION['ciid'] ? $_SESSION['ciid'] : $ciid;
 $ciid = $_POST['ciid'] ? $_POST['ciid'] : $ciid;
 if(isset($_SESSION['ciid'])){unset($_SESSION['ciid']);}
+
+if(!is_numeric($ciid) || !getInfoReg($db, $ciid, "cis")){
+    echo '<p align="center" style="width: 99.9%; text-align: center" class="alert-warning"><b>Url Not Found!</b></p>';
+    die();
+}
 
 $ci = getInfoReg($db, $ciid, "cis");
 $info = getAllTablesInfo($db, $ciid);
