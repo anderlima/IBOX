@@ -10,7 +10,9 @@
       </footer>
     </div>
     
-<script src="https://code.jquery.com/jquery.js"></script>
+<?php if((isset($_GET['i']) && $_GET['i'] != 'chart') || !isset($_GET['i'])){ ?>
+    <script src="https://code.jquery.com/jquery.js"></script>
+<?php } ?>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>

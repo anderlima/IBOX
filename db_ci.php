@@ -374,12 +374,14 @@ return $result;
 }
 
 function getTopColaborators($db){  
-
+  $rows = array();
   $sth = $db->prepare("select users_email as label, count(cis_id) as value from users_create_cis group by users_email order by count(cis_id) desc");
   $sth->execute();
 
-  $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-  return $result;
+     while($result = $sth->fetch(PDO::FETCH_ASSOC)) {
+	array_push($rows, $result);
+	}
+	return $rows;
 }
 
 function removeAttach($db, $id){
@@ -434,5 +436,17 @@ function RepeatedImplementedCIs($db, $ciid, $customer_code){
     $stm->execute();
     $result = $stm->fetch(PDO::FETCH_ASSOC);
     return $result;
+}
+
+function getVisitorsCount($db){
+    $stm = $db->prepare("select UNIX_TIMESTAMP(date) * 1000 as date, count(*) as number from counter group by day(date) order by date");
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_NUM);
+}
+
+function getAllVisitors($db){
+    $stm = $db->prepare("SELECT count(*) as number FROM counter");
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
 }
 ?>

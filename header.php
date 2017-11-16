@@ -17,9 +17,10 @@ require_once("user_logic.php");
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Morris -->
 <?php if(isset($_GET['i']) && $_GET['i'] == 'chart') { ?>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-    <script src="http://cdn.oesmith.co.uk/morris-0.4.1.min.js"></script>
+      <script src="https://code.jquery.com/jquery.js"></script>
+      <script src="https://code.highcharts.com/stock/highstock.js"></script>
+      <script src="https://code.highcharts.com/highcharts.js"></script>
+      <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <?php  } ?>
     <!-- styles -->
     <link href="css/styles.css" rel="stylesheet">
