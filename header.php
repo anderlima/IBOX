@@ -115,8 +115,10 @@ require_once("user_logic.php");
                     $netcool = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
                     $result = count(getFilterRes($db, '%', 'Bluecare', '%'));
                     $bluecare = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
-                    $i0 = $_GET['i'] == 'newest' ? $i0 = 'style="color: black;"' : $i0 = '';
+                    
+                    $inew = $_GET['i'] == 'newest' ? $inew = 'style="color: black;"' : $inew = '';
                     $ichart = $_GET['i'] == 'chart' ? $ichart = 'style="color: black;"' : $ichart = '';
+                    $iadd = $_GET['i'] == 'add' ? $iadd = 'style="color: black;"' : $iadd = '';
                     $i1 = $_GET['i'] == 1 ? $i1 = 'style="color: black;"' : $i1 = '';
                     $i2 = $_GET['i'] == 2 ? $i2 = 'style="color: black;"' : $i2 = '';
                     $i3 = $_GET['i'] == 3 ? $i3 = 'style="color: black;"' : $i3 = '';
@@ -127,10 +129,11 @@ require_once("user_logic.php");
                     $i8 = $_GET['i'] == 8 ? $i8 = 'style="color: black;"' : $i8 = '';
                     $i9 = $_GET['i'] == 9 ? $i9 = 'style="color: black;"' : $i9 = '';
                     $i10 = $_GET['i'] == 10 ? $i10 = 'style="color: black;"' : $i10 = '';
+                    
                     ?>
 
-                    <li><a href="addci.php"><i class="glyphicon glyphicon-pencil"></i>Create CI</a></li>
-                    <li><a <?=$i0?> href="index.php?i=newest"><i class="glyphicon glyphicon-list"></i>Newest CIs </a></li>
+                    <li><a <?=$iadd?> href="addci.php?i=add"><i class="glyphicon glyphicon-pencil"></i>Create CI</a></li>
+                    <li><a <?=$inew?> href="index.php?i=newest"><i class="glyphicon glyphicon-list"></i>Newest CIs </a></li>
                     <li><a <?=$i1?> href="index.php?i=1"><i class="glyphicon glyphicon-floppy-saved"></i>To be Reviewed <?=$tbreviewed?> </a></li>
                     <li><a <?=$ichart?> href="chartsci.php?i=chart"><i class="glyphicon glyphicon-stats"></i> Statistics </a></li>
                     <li class="submenu">

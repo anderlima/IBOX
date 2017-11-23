@@ -238,7 +238,6 @@ $sql = "update ideas set status='published', last_update_date=:last, approver=:u
   }
 }
 
-
 function setRejected($db, $iid, $justification){
 $now = date("Y/m/d H:i:s", time());
 $user = Whois();
@@ -324,5 +323,40 @@ $responseData = json_decode($response, TRUE);
 return "An email was successfully sent!";
 }
 
+function removeAttach($db, $id){
+    
+    $sql = "delete from upload where id=:id";
+    try{
+	$stm = $db->prepare($sql);
+	$stm->bindValue(':id', $id);
+	return $stm->execute();
+    } catch(PDOException $e)
+  {
+   $_SESSION["danger"] =  "Error " . $e->getMessage();
+  }
+}
 
+function getTopColaborators($db){  
+  $rows = array();
+  $sth = $db->prepare("select owner as label, count(id) as value from ideas group by owner order by count(id) desc");
+  $sth->execute();
+
+     while($result = $sth->fetch(PDO::FETCH_ASSOC)) {
+	array_push($rows, $result);
+	}
+	return $rows;
+}
+
+function getVisitorsCount($db){
+    $stm = $db->prepare("select UNIX_TIMESTAMP(date) * 1000 as date, count(*) as number from counter group by day(date) order by date");
+    $stm->execute();
+    return $stm->fetchAll(PDO::FETCH_NUM);
+}
+
+function getAllVisitors($db){
+    $stm = $db->prepare("SELECT count(*) as number FROM counter");
+    $stm->execute();
+    return $stm->fetch(PDO::FETCH_ASSOC);
+}
 ?>
+

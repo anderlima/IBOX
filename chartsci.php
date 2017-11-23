@@ -18,14 +18,15 @@ $visitors = json_encode($visitors, JSON_NUMERIC_CHECK);
 
 $visittotal = getAllVisitors($db);
 ?>
-
-<div class="col-md-10">    
-<a data-toggle="collapse" href="#thisvisitor">
+<div class="col-md-10">
+<?php if($_SESSION['level'] == 'admin'){ ?>   
+  <a data-toggle="collapse" href="#thisvisitor">
   <div><b>Visitors Count -> <?=$visittotal['number']?><span id="visitors" class="pull-right glyphicon glyphicon-chevron-right"></span></b></div>
   </a>
   <div id="thisvisitor" class="collapse">
     <div id="visitCount"></div>
   </div>
+<?php } ?>    
     <div id="topcolab"></div>
 </div>
 

@@ -15,6 +15,13 @@ require_once("user_logic.php");
 
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HighCharts -->
+<?php if(isset($_GET['i']) && $_GET['i'] == 'chart') { ?>
+      <script src="https://code.jquery.com/jquery.js"></script>
+      <script src="https://code.highcharts.com/stock/highstock.js"></script>
+      <script src="https://code.highcharts.com/highcharts.js"></script>
+      <script src="https://code.highcharts.com/modules/series-label.js"></script>
+<?php  } ?>
     <!-- styles -->
     <link href="css/styles.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -98,31 +105,41 @@ require_once("user_logic.php");
                     $allideas = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
                     $result = count(getFilterRes($db, 'rejected', '%'));
                     $allrejected = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
+                    
+                    $inew = $_GET['i'] == 'newest' ? $inew = 'style="color: black;"' : $inew = '';
+                    $ichart = $_GET['i'] == 'chart' ? $ichart = 'style="color: black;"' : $ichart = '';
+                    $iadd = $_GET['i'] == 'add' ? $iadd = 'style="color: black;"' : $iadd = '';
+                    $i1 = $_GET['i'] == 1 ? $i1 = 'style="color: black;"' : $i1 = '';
+                    $i2 = $_GET['i'] == 2 ? $i2 = 'style="color: black;"' : $i2 = '';
+                    $i3 = $_GET['i'] == 3 ? $i3 = 'style="color: black;"' : $i3 = '';
+                    $i4 = $_GET['i'] == 4 ? $i4 = 'style="color: black;"' : $i4 = '';
+                    $i5 = $_GET['i'] == 5 ? $i5 = 'style="color: black;"' : $i5 = '';
+                    $i6 = $_GET['i'] == 6 ? $i6 = 'style="color: black;"' : $i6 = '';
                     ?>
-                    <li><a href="addidea.php"><i class="glyphicon glyphicon-pencil"></i>Create Idea</a></li>
-                    <li><a href="listidea.php"><i class="glyphicon glyphicon-list"></i>Newest Ideas</a></li>
-                    <li><a href="listidea.php?i=1"><i class="glyphicon glyphicon-floppy-saved"></i>To be Reviewed (Admin) <?=$tbreviewed?></span></a></li>
-                    <li><a href="#"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts) TBA</a></li>
+                    <li><a <?=$iadd?> href="addidea.php?i=add"><i class="glyphicon glyphicon-pencil"></i>Create Idea</a></li>
+                    <li><a <?=$inew?> href="listidea.php?i=newest"><i class="glyphicon glyphicon-list"></i>Newest Ideas</a></li>
+                    <li><a <?=$i1?> href="listidea.php?i=1"><i class="glyphicon glyphicon-floppy-saved"></i>To be Reviewed<?=$tbreviewed?></a></li>
+                    <li><a <?=$ichart?> href="chartsidea.php?i=chart"><i class="glyphicon glyphicon-stats"></i> Statistics (TBA)</a></li>
                     <li class="submenu">
-                          <a href="#">
+                          <a <?=$i2?><?=$i3?><?=$i4?> href="#">
                             <i class="glyphicon glyphicon-user"></i> My Ideas
                             <span class="caret pull-right"></span>
                           </a>
                           <ul>
-                            <li><a href="listidea.php?i=2">Draft <?=$draft?></a></li>
-                            <li><a href="listidea.php?i=3">Published <?=$published?></a></li>
-                            <li><a href="listidea.php?i=4">Rejected <?=$rejected?></a></li>
+                            <li><a <?=$i2?> href="listidea.php?i=2">Draft <?=$draft?></a></li>
+                            <li><a <?=$i3?> href="listidea.php?i=3">Published <?=$published?></a></li>
+                            <li><a <?=$i4?> href="listidea.php?i=4">Rejected <?=$rejected?></a></li>
                           </ul>
                     </li>
                     <li class="submenu">
-                         <a href="#">
+                         <a <?=$i5?><?=$i6?> href="#">
                             <i class="glyphicon glyphicon-filter"></i> Filters
                             <span class="caret pull-right"></span>
                          </a>
                          <!-- Sub menu -->
                          <ul>
-                            <li><a href="listidea.php?i=5">All Ideas</a></li>
-                            <li><a href="listidea.php?i=6">All Rejected</a></li>
+                            <li><a <?=$i5?> href="listidea.php?i=5">All Ideas</a></li>
+                            <li><a <?=$i6?> href="listidea.php?i=6">All Rejected</a></li>
                         </ul>
                     </li>
                 </ul>

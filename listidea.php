@@ -72,13 +72,13 @@ button {
 				  			</div>
 				  			<div class="content-box-large box-with-header" style="min-height: 160px; text-overflow: ellipsis;">
 				  			<?php 
-				  			if (strlen($idea['description']) > 445) {
-				  				$content = substr(htmlspecialchars(strip_tags($idea['description'])), 0, 445)."...";
+				  			if (strlen($idea['description']) > 300) {
+				  				$content = substr(htmlspecialchars(strip_tags($idea['description'])), 0, 300)."...";
 				  			}else{
 				  				$content = htmlspecialchars(strip_tags($idea['description']));
 				  			}
 				  			?>
-					  			<p style"text-overflow: ellipsis;"><b>Summary: </b><?=$content?></p>
+					  			<p style="text-overflow: ellipsis;"><b>Summary: </b><?=$content?></p>
 								<br /><br />
 							</div>
 						</form>
