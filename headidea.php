@@ -74,7 +74,7 @@ require_once("user_logic.php");
 	                  <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
 	                    <ul class="nav navbar-nav">
 	                      <li class="dropdown">
-	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img style="float: top;" src="http://images.tap.ibm.com:10002/image/<?=Whois()?>.jpg?s=28"> <b class="caret"></b></a>
 	                        <ul class="dropdown-menu animated fadeInUp">
 	                          <li><a href="#">Profile</a></li>
 	                          <li><a href="logout.php">Logout</a></li>

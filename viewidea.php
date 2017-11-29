@@ -44,7 +44,7 @@ button {
 						?>
 						<form class="col-xs-3" action="publish_idea.php" method="post">
 						<input type="hidden" name="iid" value="<?=$idea['id']?>">
-						<button style="color: #5CB85C;"><i class="glyphicon glyphicon-ok"></i></button>
+						<button title="Approve Idea" style="color: #5CB85C;"><i class="glyphicon glyphicon-ok"></i></button>
 						</form>
 						<?php
 						}
@@ -54,7 +54,7 @@ button {
 						?>
 						<form class="col-xs-3" action="rejectidea.php" method="post">
 						<input type="hidden" name="iid" value="<?=$idea['id']?>">
-						<button style="color: #d9534f;"><i class="glyphicon glyphicon-remove"></i></button>
+						<button title="Reject Idea" style="color: #d9534f;"><i class="glyphicon glyphicon-remove"></i></button>
 						</form>
 						<?php
 						}
@@ -64,7 +64,7 @@ button {
 						?>
 						<form class="col-xs-3" action="editidea.php" method="post">
 						<input type="hidden" name="iid" value="<?=$idea['id']?>">
-						<button><i class="glyphicon glyphicon-edit"></i></button>
+						<button title="Edit Idea"><i class="glyphicon glyphicon-edit"></i></button>
 						</form>
 						<?php
 						}
@@ -75,12 +75,12 @@ button {
 		  			<div class="content-box-large box-with-header">
                         <div class="col-md-12">
                             <div class="col-md-6 well">
-                                <p><b>Owner:</b> <?=$idea['owner']?>_<?=$idea['team']?></p>
+                                <p><b>Owner:</b> <?=$idea['owner']?>_<?=$idea['team']?> <img style="float: right;" src="http://images.tap.ibm.com:10002/image/alimao@br.ibm.com.jpg?s=45"> </p>
                                 <p><b>Status:</b> <?=$idea['status']?></p><br>
                             </div>
                             <div class="col-md-6 well">
                                 <p><b>Approver:</b> <?=$idea['approver']?></p>
-                                <p><b>URL: </b>https://ibox.w3ibm.mybluemix.net/viewci.php?iid=<?=$idea['id']?></p><br>
+                                <p><b>URL: </b>https://ibox.w3ibm.mybluemix.net/viewidea.php?iid=<?=$idea['id']?></p><br>
                             </div>
                         </div>
                         <h4>Idea</h4>

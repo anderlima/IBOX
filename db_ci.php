@@ -300,7 +300,8 @@ if($status == 'published'){
         {"recipient": '.json_encode($email[2]).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"},
+        	{"recipient": "dfpf@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was successfully '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was successfully approved by '.Whois().' and <b>'.$status.'</b> <br> Please visit <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> and check on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
@@ -315,7 +316,8 @@ if($status == 'published'){
         {"recipient": '.json_encode($email[2]).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"},
+        	{"recipient": "dfpf@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was successfully sent for '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was successfully sent for <b>'.$status.'</b> by '.Whois().' <br> Await for moderator approval then visit <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> and check on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
@@ -329,7 +331,8 @@ if($status == 'published'){
         {"recipient": '.json_encode($email[2]).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"},
+        	{"recipient": "dfpf@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was <b>'.$status.'</b> by '.Whois().'<br> See justification on <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> checking on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"

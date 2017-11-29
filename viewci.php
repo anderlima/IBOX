@@ -90,11 +90,12 @@ button {
                         <div id="results1" class="col-md-12"></div>
                         <div class="col-md-12">
                             <div class="col-md-6 well">
-                                <p><b>Owner:</b> <?=$info['userc']?>_<?=$info['team']?></p>
+                                <p><b>Owner:</b> <?=$info['userc']?>_<?=$info['team']?> <img style="float: right;" src="http://images.tap.ibm.com:10002/image/<?=$info['userc']?>.jpg?s=45"></p>
                                 <p><b>Last updated by:</b> <?=$ci['last_update_by']?></p>
                                 <p><b>Status:</b> <?=$ci['status']?></p><br>
                             </div>
                             <div class="col-md-6 well">
+                                
                                 <p><b>Accounts Implemented:</b> <?=trim($csvimp,',')?></p>
                                 <p><b>Category:</b> <?=$info['description']?></p>
                                 <p><b>URL: </b>https://ibox.w3ibm.mybluemix.net/viewci.php?ciid=<?=$ci['id']?></p><br>
