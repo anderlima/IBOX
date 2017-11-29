@@ -140,6 +140,8 @@ function makeAjaxImpReq(opts, ciid){
 </script>
 
 <?php 
+}else{
+    echo '<p align="center" style="width: 99.9%; text-align: center" class="alert-warning"><b>Url Not Found!</b></p>';
 }
 require_once("foot.php");
 ?>

@@ -5,12 +5,19 @@ require_once("user_logic.php");
 
 checkUser();
 
-if(isset($_POST['iid']) || (isset($_SESSION['iid']))){
-$iid = $_SESSION['iid'] ? $_SESSION['iid'] : "";
+if(isset($_POST['iid']) || (isset($_SESSION['iid'])) || (isset($_GET['iid']))){
+$iid = $_GET['iid'] ? $_GET['iid'] : "";
+$iid = $_SESSION['iid'] ? $_SESSION['ciid'] : $iid;
 $iid = $_POST['iid'] ? $_POST['iid'] : $iid;
-if(isset($_SESSION['iid'])){unset($_SESSION['iid']);}
+if(isset($_SESSION['ciid'])){unset($_SESSION['ciid']);}
 
+    if(!is_numeric($iid) || !getInfoReg($db, $iid, "ideas")){
+    echo '<p align="center" style="width: 99.9%; text-align: center" class="alert-warning"><b>Url Not Found!</b></p>';
+    die();
+}
+    
 $idea = getInfoReg($db, $iid, "ideas");
+    
 ?>
 <style type="text/css">
 button {
@@ -66,12 +73,21 @@ button {
 						</div>
 		  			</div>
 		  			<div class="content-box-large box-with-header">
-		  				<p align="right"><b>Team:</b> <?=$idea['team']?></p>
-		  				<p align="right"><b>Created by:</b> <?=$idea['owner']?></p></br>
+                        <div class="col-md-12">
+                            <div class="col-md-6 well">
+                                <p><b>Owner:</b> <?=$idea['owner']?>_<?=$idea['team']?></p>
+                                <p><b>Status:</b> <?=$idea['status']?></p><br>
+                            </div>
+                            <div class="col-md-6 well">
+                                <p><b>Approver:</b> <?=$idea['approver']?></p>
+                                <p><b>URL: </b>https://ibox.w3ibm.mybluemix.net/viewci.php?iid=<?=$idea['id']?></p><br>
+                            </div>
+                        </div>
+                        <h4>Idea</h4>
 			  			<?=$idea['description']?>
 						<br/><br/>
 					</div>
-						<?php
+                     <?php
 						if($idea['status'] == 'rejected'){
 						?>
 						<div class="content-box-large box-with-header"><label>Justification: </label>
@@ -85,6 +101,8 @@ button {
 
 
 <?php 
+}else{
+    echo '<p align="center" style="width: 99.9%; text-align: center" class="alert-warning"><b>Url Not Found!</b></p>';
 }
 require_once("foot.php");
 ?>
