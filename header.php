@@ -76,7 +76,7 @@ require_once("user_logic.php");
 	                      <li class="dropdown">
 	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img style="float: top;" src="http://images.tap.ibm.com:10002/image/<?=Whois()?>.jpg?s=28">  <b class="caret"></b></a>
 	                        <ul class="dropdown-menu animated fadeInUp">
-	                          <li><a href="#">Profile</a></li>
+	                          <li><a href="profile.php">Profile</a></li>
 	                          <li><a href="logout.php">Logout</a></li>
 	                        </ul>
 	                      </li>
@@ -102,7 +102,6 @@ require_once("user_logic.php");
                     $published = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
                     $result = count(getFilterRes($db, 'rejected', '%', Whois()));
                     $rejected = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
-
                     $result = count(getFilterRes($db, '%', 'ITM-Infrastructure', '%'));
                     $itminf = $result > 0 ? '<span class="step">'.$result.'</span>' : '';
                     $result = count(getFilterRes($db, '%', 'ITM-OS', '%'));
@@ -164,4 +163,4 @@ require_once("user_logic.php");
                     </li>
                 </ul>
              </div>
-             </div>
+</div>
