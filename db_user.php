@@ -33,3 +33,11 @@ $sql = "Insert into counter (date) values (:now);";
    $_SESSION["danger"] =  "Error " . $e->getMessage();
   }
 }
+
+function getUserTeamId($db, $email){
+    $sth = $db->prepare("select teams_id from profiles where email=:email and isdefault=1");
+    $sth->bindValue(':email', $email);
+    $sth->execute();
+    $result = $sth->fetch();
+    return $result['teams_id'];
+}

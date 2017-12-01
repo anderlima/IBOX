@@ -4,8 +4,8 @@ require_once("headprofile.php");
 require_once("user_logic.php");
 checkUser();
 
-$team_id = $_POST['teamid'] ? $_POST['teamid'] : $_SESSION['team'];
-$_SESSION['team'] = $team_id;
+$team_id = $_POST['teamid'] ? $_POST['teamid'] : WhosTeam();
+setUserProfile($team_id);
 $myteams = getMyTeams($db, Whois());
 $profiles = getProfiles($db, $team_id);
 $team = getInfoReg($db, $team_id, "teams");

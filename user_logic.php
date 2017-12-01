@@ -36,3 +36,11 @@ function logout() {
 	session_destroy();
 	session_start();
 }
+
+function setUserProfile($team_id) {
+    $_SESSION['team'] = $team_id;
+}
+
+function WhosTeam() {
+    return $_SESSION['team'];
+}

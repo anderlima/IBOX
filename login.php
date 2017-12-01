@@ -33,6 +33,8 @@ if ($_POST['email']){
                               setPrivilege($level);
 				              echo "<br>".$_SESSION["name"]."<br>";
 			      CountVisits($db);
+			      $team_id = getUserTeamId($db, $_POST['email']);
+                              setUserProfile($team_id);
                               if($redirect != ''){
                               header("Location:". $redirect);
                              }else{
