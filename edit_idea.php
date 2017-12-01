@@ -5,12 +5,9 @@ require_once("user_logic.php");
 $status = isset($_POST['review']) ? 'review' : 'draft';
 $iid = $_SESSION['iid'] = $_POST['iid'];
 $name = $_SESSION['title'] = $_POST['title'];
-$teamid = WhosTeam();
-$team = getTeamName($db, $teamid);
 $idea = $_POST['idea'];
-echo $iid;
 
-if(EditIdea($db, $iid, $name, $idea, $team, $status)){
+if(EditIdea($db, $iid, $name, $idea, $status)){
 		if($status == 'review'){
 		$msg_id = $iid ? $_SESSION["success"] = "Your Idea #".$iid. " was successfully submitted for review!" : "";
 		}else{

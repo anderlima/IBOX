@@ -17,6 +17,8 @@ if(isset($_SESSION['iid'])){unset($_SESSION['iid']);}
 }
     
 $idea = getInfoReg($db, $iid, "ideas");
+$team_id = WhosTeam();
+$team = getTeamName($db, $team_id);
     
 ?>
 <style type="text/css">
@@ -75,7 +77,7 @@ button {
 		  			<div class="content-box-large box-with-header">
                         <div class="col-md-12">
                             <div class="col-md-6 well">
-                                <p><b>Owner:</b> <?=$idea['owner']?>_<?=$idea['team']?> <img style="float: right;" src="http://images.tap.ibm.com:10002/image/alimao@br.ibm.com.jpg?s=45"> </p>
+                                <p><b>Owner:</b> <?=$idea['owner']?>_<?=$team?> <img style="float: right;" src="http://images.tap.ibm.com:10002/image/alimao@br.ibm.com.jpg?s=45"> </p>
                                 <p><b>Status:</b> <?=$idea['status']?></p><br>
                             </div>
                             <div class="col-md-6 well">

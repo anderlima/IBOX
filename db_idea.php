@@ -5,12 +5,13 @@ checkUser();
 
 date_default_timezone_set('America/Sao_Paulo');
 
-function AddIdea($db, $title, $team){
+function AddIdea($db, $title){
 $now = date("Y/m/d H:i:s", time());
 $user = Whois();
+$team = WhosTeam();
     
 try {
-$sql = "Insert into ideas (owner, name, team, status, release_date, last_update_date) values (:user, :name, :team, 'draft', :release, :last);";
+$sql = "Insert into ideas (owner, name, teams_id, status, release_date, last_update_date) values (:user, :name, :team, 'draft', :release, :last);";
 	$stm = $db->prepare($sql);
 	$stm->bindValue(':name', $title);
     $stm->bindValue(':team', $team);
@@ -24,12 +25,13 @@ $sql = "Insert into ideas (owner, name, team, status, release_date, last_update_
   }
 }
 
-function EditIdea($db, $iid, $name, $idea, $team, $status){
+function EditIdea($db, $iid, $name, $idea, $status){
 $now = date("Y/m/d H:i:s", time());
 $user = Whois();
+$team = WhosTeam();
 
 try {
-$sql = "update ideas set name=:name, description=:idea, team=:team, status=:status, last_update_date=:last where id=:id";
+$sql = "update ideas set name=:name, description=:idea, teams_id=:team, status=:status, last_update_date=:last where id=:id";
 	$stm = $db->prepare($sql);
 	$stm->bindValue(':name', $name);
 	$stm->bindValue(':idea', $idea);
@@ -46,7 +48,9 @@ $sql = "update ideas set name=:name, description=:idea, team=:team, status=:stat
 
 function getNewIdeas($db){
 	$rows = array();
-	$stm = $db->prepare("SELECT * FROM ideas Where status='published' ORDER by id DESC");
+    $team = WhosTeam();
+	$stm = $db->prepare("SELECT * FROM ideas Where status='published' and teams_id=:team ORDER by id DESC");
+    $stm->bindValue(':team', $team);
     $stm->execute();
     while($result = $stm->fetch(PDO::FETCH_ASSOC)) {
 	array_push($rows, $result);
@@ -174,11 +178,11 @@ function getThisTool($db, $ciid){
 
 function searchIdeas($db, $search){
 	$rows = array();
-	#$searchlike = $search.'%';
+	$team = WhosTeam();
 	try{
-	$stm = $db->prepare("SELECT id, name, description FROM ideas WHERE MATCH (owner, name, description) AGAINST (:search) and status='published'");
+	$stm = $db->prepare("SELECT id, name, description FROM ideas WHERE MATCH (owner, name, description) AGAINST (:search) and status='published' and teams_id=:team");
 	$stm->bindValue(':search', $search);
-	#$stm->bindValue(':searchlike', $searchlike);
+	$stm->bindValue(':team', $team);
 	$stm->execute();
 	while($result = $stm->fetch(PDO::FETCH_ASSOC)) {
 		array_push($rows, $result);
@@ -210,10 +214,12 @@ function getCIusers($db, $ciid){
 
 function getFilterRes($db, $status, $user){
 	$rows = array();
+    $team_id = WhosTeam();
 	#$user = Whois();
-	$stm = $db->prepare("SELECT id, name, description FROM ideas WHERE status like :status and owner like :user");
+	$stm = $db->prepare("SELECT id, name, description FROM ideas WHERE status like :status and owner like :user and teams_id=:team_id");
 	$stm->bindValue(':status', $status);
 	$stm->bindValue(':user', $user);
+    $stm->bindValue(':team_id', $team_id);
 	$stm->execute();
 	while($result = $stm->fetch(PDO::FETCH_ASSOC)) {
 		array_push($rows, $result);
@@ -270,7 +276,8 @@ if($status == 'published'){
 		{"recipient": '.json_encode($email).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"},
+		{"recipient": "dfpf@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was successfully '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was successfully approved by '.Whois().' and <b>'.$status.'</b> <br> Please visit <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> and check on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
@@ -283,7 +290,8 @@ if($status == 'published'){
 		{"recipient": '.json_encode($email).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"},
+		{"recipient": "dfpf@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was successfully sent for '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was successfully sent for <b>'.$status.'</b> by '.Whois().' <br> Await for moderator approval then visit <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> and check on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
@@ -295,7 +303,8 @@ if($status == 'published'){
 		{"recipient": '.json_encode($email).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"},
+		{"recipient": "dfpf@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was <b>'.$status.'</b> by '.Whois().'<br> See justification on <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> checking on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"

@@ -25,10 +25,10 @@ if($myteams == null){
                  <div class="panel-heading col-md-10">
                      <div class="panel-title"><h3 style="color: #428dca;"><?=$team['name']?></h3><br></div>
                  </div>
-                </div>
+                 </div>
               <div class="panel-body">
                  <div class="row">
-                 <form action="add_member.php" method="post">
+                   <form action="add_member.php" method="post">
                     <input type="hidden" name="teamid" value="<?=$team_id?>">
                     <div class="col-md-2"><h4>Add Member</h4></div>
                     <div class="col-md-6">
@@ -46,7 +46,6 @@ if($myteams == null){
                     </div>
                 </form>         
                 </div><br><br><br>
-                
                 <div class="row">
                 <?php
                 foreach($profiles as $profile):
