@@ -5,14 +5,15 @@ checkUser();
 
 date_default_timezone_set('America/Sao_Paulo');
 
-function AddIdea($db, $title){
+function AddIdea($db, $title, $team){
 $now = date("Y/m/d H:i:s", time());
 $user = Whois();
-
+    
 try {
-$sql = "Insert into ideas (owner, name, status, release_date, last_update_date) values (:user, :name, 'draft', :release, :last);";
+$sql = "Insert into ideas (owner, name, team, status, release_date, last_update_date) values (:user, :name, :team, 'draft', :release, :last);";
 	$stm = $db->prepare($sql);
 	$stm->bindValue(':name', $title);
+    $stm->bindValue(':team', $team);
 	$stm->bindValue(':release', $now);
 	$stm->bindValue(':last', $now);
 	$stm->bindValue(':user', $user);
@@ -357,6 +358,13 @@ function getAllVisitors($db){
     $stm = $db->prepare("SELECT count(*) as number FROM counter");
     $stm->execute();
     return $stm->fetch(PDO::FETCH_ASSOC);
+}
+
+function getTeamName($db, $team_id){
+    $stm = $db->prepare("SELECT name FROM teams where id=".$team_id);
+    $stm->execute();
+    $result = $stm->fetch();
+    return $result['name'];
 }
 ?>
 

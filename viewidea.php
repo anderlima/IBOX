@@ -7,9 +7,9 @@ checkUser();
 
 if(isset($_POST['iid']) || (isset($_SESSION['iid'])) || (isset($_GET['iid']))){
 $iid = $_GET['iid'] ? $_GET['iid'] : "";
-$iid = $_SESSION['iid'] ? $_SESSION['ciid'] : $iid;
+$iid = $_SESSION['iid'] ? $_SESSION['iid'] : $iid;
 $iid = $_POST['iid'] ? $_POST['iid'] : $iid;
-if(isset($_SESSION['ciid'])){unset($_SESSION['ciid']);}
+if(isset($_SESSION['iid'])){unset($_SESSION['iid']);}
 
     if(!is_numeric($iid) || !getInfoReg($db, $iid, "ideas")){
     echo '<p align="center" style="width: 99.9%; text-align: center" class="alert-warning"><b>Url Not Found!</b></p>';

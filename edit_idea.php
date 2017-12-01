@@ -1,14 +1,14 @@
 <?php 
 require_once("db_idea.php");
+require_once("user_logic.php");
 
-if(isset($_SESSION['iid'])){unset($_SESSION['iid']);}
 $status = isset($_POST['review']) ? 'review' : 'draft';
 $iid = $_SESSION['iid'] = $_POST['iid'];
 $name = $_SESSION['title'] = $_POST['title'];
-$team = $_SESSION['team'] = $_POST['team'];
-$idea = $_SESSION['idea'] = $_POST['idea'];
+$teamid = WhosTeam();
+$team = getTeamName($db, $teamid);
+$idea = $_POST['idea'];
 echo $iid;
-
 
 if(EditIdea($db, $iid, $name, $idea, $team, $status)){
 		if($status == 'review'){

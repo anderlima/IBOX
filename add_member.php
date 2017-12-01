@@ -10,7 +10,7 @@ echo $email."<br>";
 echo $level."<br>";
 
 if($teamid == null){
- $_SESSION["danger"] = "Please create a team first. Check on left panel!";
+ $_SESSION["danger"] = "Please select a team first. Check on left panel!";
 	header('Location: profile.php');
 }elseif(checkRepeatedProfile($db, $teamid, $email)){
     $_SESSION["danger"] = "Member is already part of the team. Please choose another one!";

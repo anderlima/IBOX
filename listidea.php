@@ -5,7 +5,6 @@ require_once("user_logic.php");
 
 checkUser();
 unset($_SESSION['title']);
-unset($_SESSION['team']);
 unset($_SESSION['idea']);
 unset($_SESSION['iid']);
 

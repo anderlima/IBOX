@@ -11,12 +11,9 @@ $iid = $_POST['iid'] ? $_POST['iid'] : $iid;
 
 
 $idea = getInfoReg($db, $iid, 'ideas');
-$teams = getInfoAll($db, 'teams');
 
 $ideaname = isset($_POST['title']) ? $_POST['title'] : $idea['name'];
 $ideaname = isset($_SESSION['title']) ? $_SESSION['title'] : $ideaname; unset($_SESSION['title']);
-$ideateam = isset($_POST['team']) ? $_POST['team'] : $idea['team'];
-$ideateam = isset($_SESSION['team']) ? $_SESSION['team'] : $estimated; unset($_SESSION['team']);
 $ideadescription = isset($_POST['idea']) ? $_POST['idea'] : $idea['description'];
 $ideadescription = isset($_SESSION['idea']) ? $_SESSION['idea'] : $ideadescription; unset($_SESSION['idea']);
 
@@ -46,22 +43,9 @@ $ideadescription = isset($_SESSION['idea']) ? $_SESSION['idea'] : $ideadescripti
                       Submit for Review
                     </button>
                    </div>
-
                     <div class="form-group">
                       <label>Title:</label>
                       <input required maxlength="50" name="title" class="form-control" placeholder="Title" type="text" value="<?=$ideaname?>">
-                    </div>
-                    <div class="form-group row">
-                      <div class=" col-xs-4"><label>Team:</label>
-                      <select name="team" class="form-control">
-                      <?php foreach($teams as $team) :
-                      	$thisIstheTeam = $ideateam == $team['name'];
-                        $selectteam = $thisIstheTeam ? "selected='selected'" : "";
-                      ?>
-                        <option value="<?=$team['name']?>" <?=$selectteam?>><?=$team['name']?></option>
-                      <?php endforeach; ?>
-                      </select>
-                      </div>
                     </div>
         			<div class="content-box-large">
           				<div class="panel-heading">
@@ -104,8 +88,8 @@ $ideadescription = isset($_SESSION['idea']) ? $_SESSION['idea'] : $ideadescripti
 				$rows = getAttachments($db, $iid);
 				 foreach ($rows as $row) {
 					?>
-					<div class="col-md-4"> </br>
-					<label>
+					<div class="col-md-4"> </br>                
+                    <label>
 					<a href="download.php?id=<?=$row['id']?>"><?=$row['name']?></a> 
                         <a href="remattach.php?id=<?=$row['id']?>&iid=<?=$iid?>&name=<?=$row['name']?>" onclick="return confirm('This will remove <?=$row['name']?> permanently. Are you Sure?')"><span style="float: right; color: #d9534f;"><i class="glyphicon glyphicon-remove"></i></span></a>
                         <?php echo '<input type="text" class="form-control" value="download.php?id='.$row['id'].'">'?>
