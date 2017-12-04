@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 require_once("show_alert.php");
-require_once("db_ci.php");
+require_once("db_user.php");
 require_once("user_logic.php");
 
 $myteams = getMyTeams($db, Whois());

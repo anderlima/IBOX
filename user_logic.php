@@ -1,4 +1,5 @@
 <?php
+
 if(session_status() == PHP_SESSION_NONE){
     session_start();
 }
@@ -24,12 +25,14 @@ function WhosName() {
 
 function logUser($email, $name) {
 	$_SESSION["user_email"] = $email;
-	$_SESSION["user_name"] = $name;
 }
 
 function setPrivilege($level) {
 	$_SESSION["level"] = $level;
-	return $_SESSION["level"];
+}
+
+function getLevel(){
+    return $_SESSION["level"];
 }
 
 function logout() {
@@ -44,3 +47,13 @@ function setUserProfile($team_id) {
 function WhosTeam() {
     return $_SESSION['team'];
 }
+
+function setTeamCategory($category){
+    $_SESSION['category'] = $category;
+}
+
+function teamCateg($category){
+    return $_SESSION['category'];
+}
+
+

@@ -3,6 +3,9 @@ error_reporting(E_ALL ^ E_NOTICE);
 require_once("show_alert.php");
 require_once("db_idea.php");
 require_once("user_logic.php");
+
+$teamid = WhosTeam();
+$team = getInfoReg($db, $teamid, 'teams');
 ?>
 
 <!DOCTYPE html>

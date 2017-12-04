@@ -17,24 +17,22 @@ if ($_POST['email']){
                         $employee = ldap_result_format($info[0]);
                         if (@ldap_bind($ds, $employee['dn'], $_POST['password'])) {
                                 #$_SESSION["success"] = "User successfully logged in!";
-				                $user = getUser($db, $employee['mail']);
+				$user = getUser($db, $employee['mail']);
                                 if($user){
                                 $_SESSION['registered'] = 'true';
                             }
                                 $_SESSION["name"] = $employee['cn'];
-				                logUser($_POST['email'], $_SESSION["name"]);
-                        if($user['level'] == 'admin') {
-                                $level = "admin";
-                            }elseif($user['level'] == 'moderator'){
-                                $level = "moderator";
-                            }else{
-                                $level = "user";
-                            }
-                              setPrivilege($level);
-				              echo "<br>".$_SESSION["name"]."<br>";
+			
+			      logUser($_POST['email']);
+
 			      CountVisits($db);
-			      $team_id = getUserTeamId($db, $_POST['email']);
+			      $team_id = getUserDefaultTeamId($db, $_POST['email']);
+                              $team = getTeam($db, $teamid);
+                              $myprofile = getMyProfile($db, $team_id, Whois());
+                              setPrivilege($myprofile['level']);    
                               setUserProfile($team_id);
+                              setTeamCategory($team['category']);
+
                               if($redirect != ''){
                               header("Location:". $redirect);
                              }else{

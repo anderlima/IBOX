@@ -1,5 +1,5 @@
 <?php 
-require_once("db_ci.php");
+require_once("db_user.php");
 
 $profileid = $_POST['profileid'];
 $level = $_POST['level'];

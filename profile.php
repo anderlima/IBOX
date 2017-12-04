@@ -1,15 +1,19 @@
 <?php 
-require_once("db_ci.php");
+require_once("db_user.php");
 require_once("headprofile.php");
 require_once("user_logic.php");
 checkUser();
 
 $team_id = $_POST['teamid'] ? $_POST['teamid'] : WhosTeam();
-setUserProfile($team_id);
+$team = getTeam($db, $team_id);
 $myteams = getMyTeams($db, Whois());
 $profiles = getProfiles($db, $team_id);
-$team = getInfoReg($db, $team_id, "teams");
+$myprofile = getMyProfile($db, $team_id, Whois());
+setPrivilege($myprofile['level']); 
+$disabled = $myprofile['level'] == 'admin' ? '' : 'disabled';
 $i = 0;
+setUserProfile($team_id);
+setTeamCategory($team['category']);
 
 if($myteams == null){
     $_SESSION["danger"] = "You have no team. Please create a team or ask your team moderator to add you as a member!";
@@ -42,7 +46,7 @@ if($myteams == null){
                         </select>
                     </div>
                      <div class="col-md-2">
-                       <button type="submit" class="btn btn-success">Submit</button>
+                       <button type="submit" class="btn btn-success" <?=$disabled?>>Submit</button>
                     </div>
                 </form>         
                 </div><br><br><br>
@@ -58,7 +62,7 @@ if($myteams == null){
                         <div style="float: right;">
                         <form class="col-xs-1" action="edit_profile.php" method="post">
                         <input type="hidden" name="teamid" value="<?=$profile['id']?>">
-                        <button type="button" title="Alter Profile" data-toggle="modal" data-target="#myModal<?=$i?>" style="color: #5CB85C; border: none; background: white;"><i class="glyphicon glyphicon-cog"></i></button>
+                        <button type="button" title="Alter Profile" data-toggle="modal" data-target="#myModal<?=$i?>" style="color: #5CB85C; border: none; background: white;" <?=$disabled?>><i class="glyphicon glyphicon-cog"></i></button>
                         </form>
                         </div> 
                     </div>
