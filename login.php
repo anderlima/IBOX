@@ -27,7 +27,7 @@ if ($_POST['email']){
 
 			      CountVisits($db);
 			      $team_id = getUserDefaultTeamId($db, $_POST['email']);
-                              $team = getTeam($db, $teamid);
+                              $team = getTeam($db, $team_id);
                               $myprofile = getMyProfile($db, $team_id, Whois());
                               setPrivilege($myprofile['level']);    
                               setUserProfile($team_id);

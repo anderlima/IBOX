@@ -51,7 +51,7 @@ button {
 	  					<div class="panel-title "><?=$ci['name']?></div>
 						<div class="panel-options">
                         <?php
-                        if(($_SESSION['level'] == 'admin' || $_SESSION['level'] == 'moderator') && $ci['status'] == 'review'){
+                        if((getLevel() == 'admin' || getLevel() == 'moderator') && $ci['status'] == 'review'){
                         ?>
                         <form class="col-xs-4" action="publish.php" method="post">
                         <input type="hidden" name="ciid" value="<?=$ci['id']?>">
@@ -59,7 +59,7 @@ button {
                         </form>
                         <?php
                         }
-                       	if(($_SESSION['level'] == 'admin' || $_SESSION['level'] == 'moderator') && $ci['status'] == 'review'){
+                       	if((getLevel() == 'admin' || getLevel() == 'moderator') && $ci['status'] == 'review'){
 						?>
 						<form class="col-xs-4" action="rejectci.php" method="post">
 						<input type="hidden" name="ciid" value="<?=$ci['id']?>">
@@ -67,7 +67,7 @@ button {
 						</form>
 						<?php
 						}
-                        if($_SESSION['level'] == 'admin' || ($ci['last_update_by'] == Whois() && $ci['status'] == 'draft') || (strpos($out, Whois()) !== false && $ci['status'] == 'draft' || $ci['status'] == 'rejected')){
+                        if(getLevel() == 'admin' || ($ci['last_update_by'] == Whois() && $ci['status'] == 'draft') || (strpos($out, Whois()) !== false && $ci['status'] == 'draft' || $ci['status'] == 'rejected')){
                         ?>
                         <form class="col-xs-4" action="editci.php" method="post">
                         <input type="hidden" name="ciid" value="<?=$ci['id']?>">
@@ -112,13 +112,12 @@ button {
                 <?php
                 if($ci['status'] == 'rejected'){
 				?>
-    <div class="content-box-large box-with-header"><label>Rejection Justification: </label></br>
+            <div class="content-box-large box-with-header"><label>Rejection Justification: </label></br>
 			  	<?=$ci['justification']?>
 				<br /><br />
 				</div>
 				<?php } ?>
-		  </div>
-
+		  
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>

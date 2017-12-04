@@ -1,5 +1,5 @@
 <?php 
-require_once("db_ci.php");
+require_once("db_user.php");
 
 $teamid = $_POST['teamid'];
 $email = $_POST['email'];
@@ -22,3 +22,4 @@ if($teamid == null){
 	$_SESSION["danger"] = $_SESSION["danger"] ? $_SESSION["danger"] : "Member could not be addded. Please check with administrator!";
 	header('Location: profile.php');
 }
+

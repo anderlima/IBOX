@@ -52,8 +52,32 @@ function setTeamCategory($category){
     $_SESSION['category'] = $category;
 }
 
-function teamCateg($category){
+function teamCateg(){
     return $_SESSION['category'];
+}
+
+function checkTeamIdea(){
+    if(teamCateg() == 'ci'){
+    header("Location: index.php");
+}
+    if(teamCateg() == null){
+    header("Location: profile.php");
+    die();
+} else {
+    return null;
+    }
+}
+
+function checkTeamCI(){
+    if(teamCateg() == 'idea'){
+    header("Location: listidea.php");
+}
+    if(teamCateg() == null){
+    header("Location: profile.php");
+    die();
+} else {
+    return null;
+    }
 }
 
 

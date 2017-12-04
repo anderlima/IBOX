@@ -3,6 +3,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 require_once("show_alert.php");
 require_once("db_ci.php");
 require_once("user_logic.php");
+checkTeamCI();
 ?>
 
 <!DOCTYPE html>
@@ -45,12 +46,17 @@ require_once("user_logic.php");
                 <div class="navbar navbar-inverse" role="banner">
                     <nav class="navbar-collapse bs-navbar-collapse" role="navigation">
                       <ul class="nav navbar-nav">
+                        <?php if(teamCateg() != 'idea') { ?>  
                         <li class="active">
                           <a href="#">IMPROVEMENTS</a>
                         </li>
+                        <?php } 
+                              if(teamCateg() != 'ci') {
+                          ?>
                          <li>
                           <a href="listidea.php">IDEA LOG</a>
                         </li>
+                        <?php } ?>
                       </ul>
                     </nav>
                 </div>
