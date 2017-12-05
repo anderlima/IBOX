@@ -13,7 +13,7 @@ if($idea['status'] == 'published'){
 }else{
 if(setPublished($db, $_POST['iid'])){
 	$_SESSION["success"] = "This Idea was successfully set to Published!";
-	$emailmessage = sendEmail($idea['id'], $idea['name'], 'published', 'Idea');
+	$emailmessage = sendEmail($db, $idea['id'], $idea['name'], 'published', 'Idea');
     $_SESSION["success"] = $_SESSION["success"]." ".$emailmessage;
 	header('Location: viewidea.php');
 }else{

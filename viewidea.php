@@ -42,7 +42,7 @@ button {
 						<div class="panel-options">
 						<div class="row">
 						<?php
-						if(getLevel() == 'admin' && $idea['status'] == 'review'){
+						if((getLevel() == 'admin' || getLevel() == 'moderator') && $idea['status'] == 'review'){
 						?>
 						<form class="col-xs-3" action="publish_idea.php" method="post">
 						<input type="hidden" name="iid" value="<?=$idea['id']?>">
@@ -52,7 +52,7 @@ button {
 						}
 						?>
 						<?php
-						if(getLevel() == 'admin' && $idea['status'] == 'review'){
+						if((getLevel() == 'admin' || getLevel() == 'moderator') && $idea['status'] == 'review'){
 						?>
 						<form class="col-xs-3" action="rejectidea.php" method="post">
 						<input type="hidden" name="iid" value="<?=$idea['id']?>">

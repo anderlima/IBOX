@@ -274,10 +274,14 @@ $sql = "update cis set status='rejected', last_update_date=:last, last_update_by
 }
 
 function sendEmail($db, $id, $name, $status, $type){
+$teamid = WhosTeam();
 $username='03c38cc1-4d8f-492f-9621-6d57632b1d90';
 $password='c930a783-7b9c-4b3f-9caf-b97f294fb9b2';
 $URL='https://bluemail.w3ibm.mybluemix.net/rest/v2/emails';
 $email = array();
+$email[] = "default@us.ibm.com";
+$email[] = "default@us.ibm.com";
+$email[] = "default@us.ibm.com";
 $email[] = "default@us.ibm.com";
 $email[] = "default@us.ibm.com";
 $email[] = "default@us.ibm.com";
@@ -290,6 +294,14 @@ $stm = $db->prepare("SELECT users_email from users_create_cis where cis_id=:id")
     	$email[$i] = $result['users_email'];
     	$i++;
     }
+    
+$stm = $db->prepare("SELECT email from profiles where teams_id=:id and level='moderator'");
+    $stm->bindValue(':id', $teamid);
+    $stm->execute();
+    while($result = $stm->fetch(PDO::FETCH_ASSOC)) {
+    	$email[$i] = $result['email'];
+    	$i++;
+    }
 
 if($status == 'published'){
 	$postData = '{
@@ -297,11 +309,13 @@ if($status == 'published'){
 	"recipients": [
 		{"recipient": '.json_encode($email[0]).'},
         {"recipient": '.json_encode($email[1]).'},
-        {"recipient": '.json_encode($email[2]).'}
+        {"recipient": '.json_encode($email[2]).'},
+        {"recipient": '.json_encode($email[3]).'},
+        {"recipient": '.json_encode($email[4]).'},
+        {"recipient": '.json_encode($email[5]).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"},
-        	{"recipient": "dfpf@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was successfully '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was successfully approved by '.Whois().' and <b>'.$status.'</b> <br> Please visit <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> and check on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
@@ -313,11 +327,13 @@ if($status == 'published'){
 	"recipients": [
 		{"recipient": '.json_encode($email[0]).'},
         {"recipient": '.json_encode($email[1]).'},
-        {"recipient": '.json_encode($email[2]).'}
+        {"recipient": '.json_encode($email[2]).'},
+        {"recipient": '.json_encode($email[3]).'},
+        {"recipient": '.json_encode($email[4]).'},
+        {"recipient": '.json_encode($email[5]).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"},
-        	{"recipient": "dfpf@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was successfully sent for '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was successfully sent for <b>'.$status.'</b> by '.Whois().' <br> Await for moderator approval then visit <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> and check on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
@@ -328,11 +344,13 @@ if($status == 'published'){
 	"recipients": [
 		{"recipient": '.json_encode($email[0]).'},
         {"recipient": '.json_encode($email[1]).'},
-        {"recipient": '.json_encode($email[2]).'}
+        {"recipient": '.json_encode($email[2]).'},
+        {"recipient": '.json_encode($email[3]).'},
+        {"recipient": '.json_encode($email[4]).'},
+        {"recipient": '.json_encode($email[5]).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"},
-        	{"recipient": "dfpf@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was <b>'.$status.'</b> by '.Whois().'<br> See justification on <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> checking on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"

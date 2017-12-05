@@ -9,7 +9,7 @@ if($idea['status'] == 'rejected'){
 }else{
 if(setRejected($db, $_POST['iid'], $_POST['justification'])){
 	$_SESSION["success"] = "This Idea was successfully set to Rejected!";
-    $emailmessage = sendEmail($idea['id'], $idea['name'], 'rejected', 'Idea');
+    $emailmessage = sendEmail($db, $idea['id'], $idea['name'], 'rejected', 'Idea');
     $_SESSION["success"] = $_SESSION["success"]." ".$emailmessage;
 	header('Location: viewidea.php');
 }else{

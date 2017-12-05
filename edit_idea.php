@@ -14,7 +14,7 @@ if(EditIdea($db, $iid, $name, $idea, $status)){
 		$msg_id = $iid ? $_SESSION["success"] = "Your Idea #".$iid. " is saved as draft!" : "";
 		}
 	if($status == 'review'){
-    $emailmessage = sendEmail($iid, $name, $status, 'Idea');
+    $emailmessage = sendEmail($db, $iid, $name, $status, 'Idea');
     $_SESSION["success"] = $_SESSION["success"]." ".$emailmessage;
 }
 	header('Location: viewidea.php');
