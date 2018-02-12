@@ -1,4 +1,5 @@
 <?php
+require_once("LDAPw3.php");
 
 if(session_status() == PHP_SESSION_NONE){
     session_start();
@@ -54,6 +55,31 @@ function setTeamCategory($category){
 
 function teamCateg(){
     return $_SESSION['category'];
+}
+
+function setTeamName($name){
+    $_SESSION['tname'] = $name;
+}
+
+function teamName(){
+    return $_SESSION['tname'];
+}
+
+function setUid($uid){
+    $_SESSION['uid'] = $uid;
+}
+
+function getUid(){
+    return $_SESSION['uid'];
+}
+
+function ldapUid($email){
+    $ds = @ldap_connect('ldaps://bluepages.ibm.com');
+    @ldap_bind($ds); 
+    $data = @ldap_search($ds, 'ou=bluepages,o=ibm.com', '(&(uid=*)(c=*)(mail='.$email.'))');
+    $info = @ldap_get_entries($ds, $data);
+    $employee = ldap_result_format($info[0]);
+    return $employee['uid'];
 }
 
 function checkTeamIdea(){

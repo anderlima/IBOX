@@ -12,7 +12,7 @@ $ciid = $_POST['ciid'] ? $_POST['ciid'] : $ciid;
 $ci = getInfoReg($db, $ciid, 'cis');
 $thistool = getThisTool($db, $ciid);
 $tools = getTools($db);
-$users = getInfoAll($db, 'users');
+$users = getProfileUsers($db, WhosTeam());
 $theseusers = getCIusers($db, $ciid);
 $struser = "";
 foreach ($theseusers as $thisuser) {

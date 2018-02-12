@@ -1,7 +1,6 @@
 <?php
 require_once("db_user.php");
 require_once("user_logic.php");
-require_once("LDAPw3.php");
 
 $redirect = isset($_POST['location']) ? $_POST['location'] : '';
 
@@ -18,6 +17,7 @@ if ($_POST['email']){
                         if (@ldap_bind($ds, $employee['dn'], $_POST['password'])) {
                                 #$_SESSION["success"] = "User successfully logged in!";
 				$user = getUser($db, $employee['mail']);
+				$uid = $employee['uid'];
                                 if($user){
                                 $_SESSION['registered'] = 'true';
                             }
@@ -32,6 +32,8 @@ if ($_POST['email']){
                               setPrivilege($myprofile['level']);    
                               setUserProfile($team_id);
                               setTeamCategory($team['category']);
+			      setTeamName($team['name']);
+			      setUid($uid);
 
                               if($redirect != ''){
                               header("Location:". $redirect);

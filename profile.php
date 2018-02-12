@@ -14,6 +14,7 @@ $disabled = $myprofile['level'] == 'admin' ? '' : 'disabled';
 $i = 0;
 setUserProfile($team_id);
 setTeamCategory($team['category']);
+setTeamName($team['name']);
 
 if($myteams == null){
     $_SESSION["danger"] = "You have no team. Please create a team or ask your team moderator to add you as a member!";
@@ -52,10 +53,18 @@ if($myteams == null){
                 </div><br><br><br>
                 <div class="row">
                 <?php
+		$ds = @ldap_connect('ldaps://bluepages.ibm.com');
+		@ldap_bind($ds); 
                 foreach($profiles as $profile):
                 ?>
                 <div class="col-xs-2" style="box-shadow: 4px 4px 2px grey; padding: 12px; margin: 5px;">
-                        <img style="float:left;" src="http://images.tap.ibm.com:10002/image/<?=$profile['email']?>.jpg?s=31">
+		    <?php   
+                    	$data = @ldap_search($ds, 'ou=bluepages,o=ibm.com', '(&(uid=*)(c=*)(mail='.$profile['email'].'))');
+			$info = @ldap_get_entries($ds, $data);
+			$employee = ldap_result_format($info[0]);
+			$uid = $employee['uid'];
+                    ?>
+                    <img style="float:left;" src="http://images.tap.ibm.com:10002/image/<?=$uid?>?s=31">
                     <div style="float: right;">
                         <?=$profile['email']?><br>
                         <b><?=$profile['level']?></b>

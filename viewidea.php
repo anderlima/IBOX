@@ -62,7 +62,7 @@ button {
 						}
 						?>
 						<?php
-						if($idea['owner'] == Whois() && $idea['status'] == 'draft'){
+						if($idea['owner'] == Whois() && ($idea['status'] == 'draft' || $idea['status'] == 'rejected')){
 						?>
 						<form class="col-xs-3" action="editidea.php" method="post">
 						<input type="hidden" name="iid" value="<?=$idea['id']?>">
@@ -77,7 +77,7 @@ button {
 		  			<div class="content-box-large box-with-header">
                         <div class="col-md-12">
                             <div class="col-md-6 well">
-                                <p><b>Owner:</b> <?=$idea['owner']?>_<?=$team?> <img style="float: right;" src="http://images.tap.ibm.com:10002/image/alimao@br.ibm.com.jpg?s=45"> </p>
+                                <p><b>Owner:</b> <?=$idea['owner']?>_<?=$team?> <img style="float: right;" src="http://images.tap.ibm.com:10002/image/<?=ldapUid($idea['owner'])?>?s=45"> </p>
                                 <p><b>Status:</b> <?=$idea['status']?></p><br>
                             </div>
                             <div class="col-md-6 well">

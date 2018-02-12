@@ -307,7 +307,7 @@ if($status == 'published'){
 	$postData = '{
 	"contact": "NotReplyIbox@br.ibm.com",
 	"recipients": [
-		{"recipient": '.json_encode($email[0]).'},
+	{"recipient": '.json_encode($email[0]).'},
         {"recipient": '.json_encode($email[1]).'},
         {"recipient": '.json_encode($email[2]).'},
         {"recipient": '.json_encode($email[3]).'},
@@ -315,7 +315,8 @@ if($status == 'published'){
         {"recipient": '.json_encode($email[5]).'}
 	],
 	"bcc": [
-		{"recipient": "alimao@br.ibm.com"}
+		{"recipient": "alimao@br.ibm.com"},
+		{"recipient": "dfpf@br.ibm.com"}
 	],
 	"subject": "[IBOX] Your '.$type.' #'.$id.' was successfully '.$status.'        ",
 	"message": "Hello,<br>Your '.$type.' entitled as <b>'.$name.'</b> was successfully approved by '.Whois().' and <b>'.$status.'</b> <br> Please visit <a href=\"https://ibox.w3ibm.mybluemix.net\">IBOX</a> and check on My '.$type.'s section. <br><br> Best Regards, <br> IBOX 2.0"
@@ -325,7 +326,7 @@ if($status == 'published'){
 	$postData = '{
 	"contact": "NotReplyIbox@br.ibm.com",
 	"recipients": [
-		{"recipient": '.json_encode($email[0]).'},
+	{"recipient": '.json_encode($email[0]).'},
         {"recipient": '.json_encode($email[1]).'},
         {"recipient": '.json_encode($email[2]).'},
         {"recipient": '.json_encode($email[3]).'},
@@ -342,7 +343,7 @@ if($status == 'published'){
     $postData = '{
 	"contact": "NotReplyIbox@br.ibm.com",
 	"recipients": [
-		{"recipient": '.json_encode($email[0]).'},
+	{"recipient": '.json_encode($email[0]).'},
         {"recipient": '.json_encode($email[1]).'},
         {"recipient": '.json_encode($email[2]).'},
         {"recipient": '.json_encode($email[3]).'},
@@ -396,7 +397,8 @@ return $result;
 
 function getTopColaborators($db){  
   $rows = array();
-  $sth = $db->prepare("select users_email as label, count(cis_id) as value from users_create_cis group by users_email order by count(cis_id) desc");
+  $sth = $db->prepare("select uc.users_email as label, count(uc.cis_id) as value from users_create_cis as uc
+  join cis as cis on cis.id=uc.cis_id where cis.status='published' group by uc.users_email order by count(uc.cis_id) desc");
   $sth->execute();
 
      while($result = $sth->fetch(PDO::FETCH_ASSOC)) {
@@ -471,3 +473,14 @@ function getAllVisitors($db){
     return $stm->fetch(PDO::FETCH_ASSOC);
 }
 
+function getProfileUsers($db, $teams_id){
+    $rows = array();    
+    $sth = $db->prepare("select * from profiles where teams_id=:teams_id");
+    $sth->bindValue(':teams_id', $teams_id);
+    $sth->execute();
+
+ while($result = $sth->fetch(PDO::FETCH_ASSOC)) {
+	array_push($rows, $result);
+	}
+	return $rows;
+}
