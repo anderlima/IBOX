@@ -87,7 +87,7 @@ button {
 									<button><i class="glyphicon glyphicon-log-in"></i></button>
 								</div>
 				  			</div>
-				  			<div class="content-box-large box-with-header" style="min-height: 160px;">
+				  			<div class="content-box-large box-with-header" style="min-height: 160px;word-wrap: break-word;">
 					  			<?=htmlspecialchars($ci['short_description'])?>
 								<br /><br />
 							</div>
